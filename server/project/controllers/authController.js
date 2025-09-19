@@ -10,18 +10,18 @@ export const register = async (req, res) => {
 
     // Check email exists
     const [emailExists] = await pool.query(
-        "SELECT * FROM users WHERE email=?", 
+        "SELECT * FROM users WHERE email=?",
         [email]
     );
 
-    if(emailExists.length > 0) return res.status(400).json({ message: "Email already exists." });
-    
+    if (emailExists.length > 0) return res.status(400).json({ message: "Email already exists." });
+
     // Check username exists 
     const [usernameExists] = await pool.query(
-        "SELECT * FROM users WHERE username=?", 
+        "SELECT * FROM users WHERE username=?",
         [username]
-    ); 
-    if(usernameExists.length > 0) return res.status(400).json({ message: "Username already exists." });
+    );
+    if (usernameExists.length > 0) return res.status(400).json({ message: "Username already exists." });
 
     // Check password length
     if (password.length < 8) {
@@ -62,7 +62,7 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(
         {
-            id: user.id, 
+            id: user.id,
             email: user.email,
             username: user.username
         },
@@ -74,10 +74,21 @@ export const login = async (req, res) => {
         "token",
         token,
         {
-            httpOnly:true,
+            httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000
         }
     )
 
     res.json({ message: "Login successful", user: { id: user.id, username: user.username, email: user.email } });
+}
+
+// Logout
+export const logout = async (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict"
+    });
+
+    return res.json({ message: "Logged out successfully" });
 }
