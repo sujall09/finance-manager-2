@@ -15,6 +15,10 @@ export const createTransaction = async (req, res) => {
         return res.status(400).json({ message: "Invalid transaction type" });
     }
 
+    if(!amount > 0){
+        return res.status(400).json({ message: "Please enter the amount" });
+    }
+
     try {
         const [result] = await pool.query(
             "INSERT INTO transactions (user_id, type, category, amount, note) VALUES (?, ?, ?, ?, ?)",
@@ -119,5 +123,24 @@ export const deleteTransaction = async (req, res) => {
     }
 }
 
+// Summary
 
+export const summary = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        // const user = await pool.query("SELECT * FROM transactions WHERE user_id = ?", [userId]);
+        const [expense] = await pool.query(
+            "SELECT SUM(CASE WHEN type = ? THEN amount ELSE 0 END) AS totalIncome, SUM(CASE WHEN type = ? THEN amount ELSE 0 END) AS totalExpense, SUM(CASE WHEN type = ? THEN amount ELSE 0 END) AS totalSaving FROM transactions WHERE user_id=?",
+            ["income", "expense", "saving", userId]
+        )
+
+        // const totalIncome = expense[0].totalIncome;
+        // const totalExpense = expense[0]?.totalExpense;
+        // const totalSaving = expense[0]?.totalSaving;
+        res.json({ expense });
+    } catch (error) {
+        res.status(500).json({ error});
+    }
+}
 
