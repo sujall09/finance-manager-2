@@ -3,11 +3,18 @@ import dotenv from "dotenv";
 import authRoutes from "./project/routes/authRoutes.js"
 import transactionRoutes from "./project/routes/transactionRoutes.js"
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
+
+app.use(cors({
+    origin: "http://localhost:5173", // frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // if you’re sending cookies or auth headers
+}));
 
 app.use(express.json());
 

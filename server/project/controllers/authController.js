@@ -36,7 +36,7 @@ export const register = async (req, res) => {
         [name, username, email, hashPassword]
     )
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({ message: "User registered successfully"});
 }
 
 // Login
