@@ -1,14 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
+import { DashboardMain, Header, Sidebar } from "../components"
 
 function Dashboard() {
     const { user, isLoggedIn } = useSelector(state => state.auth)
 
-    console.log("Redux user:", user);
-    console.log("Is logged in:", isLoggedIn);
     return (
-        <div>
-            {isLoggedIn ? `Logged in as ${user.username}` : "Not logged in"}
+        <div className='flex min-h-screen bg-gray-50'>
+            <DashboardMain />
         </div>
     )
 }
