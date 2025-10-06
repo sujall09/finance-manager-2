@@ -11,7 +11,7 @@ function Layout() {
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
             {/* main content */}
-            <main className="flex-1 ml-64">
+            <main className={`${isOpen ? "flex-1 ml-64" : "flex-1 ml-20"}`}>
                 <Header />
                 <Outlet />
             </main>

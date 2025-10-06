@@ -67,7 +67,7 @@ export default function RegisterForm() {
             navigate("/login");
 
         } catch (error) {
-            dispatch(registerFailure(error.response.data.message));
+            dispatch(registerFailure("Register Form Error: ", error.response.data.message));
         }
     }
 
