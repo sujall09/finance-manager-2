@@ -11,10 +11,12 @@ function Layout() {
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 
             {/* main content */}
-            <main className={`${isOpen ? "flex-1 ml-64" : "flex-1 ml-20"}`}>
-                <Header />
-                <Outlet />
-            </main>
+            <div className="flex-1 flex flex-col min-h-0">
+                <Header isOpen={isOpen} setIsOpen={setIsOpen} />
+                <main className={`transition-all duration-300 ease-in-out ${isOpen ? "flex-1 ml-64" : "flex-1 ml-20"} mt-16 p-6`}>
+                    <Outlet />
+                </main>
+            </div>
         </div>
     )
 }

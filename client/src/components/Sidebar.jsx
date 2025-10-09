@@ -9,10 +9,10 @@ import { IoSettingsOutline } from "react-icons/io5";
 function Sidebar({ isOpen, setIsOpen }) {
     const linkClasses = "flex items-center gap-3 p-3 rounded hover:bg-gray-100 transition-colors";
     return (
-        <aside className={`shadow-md flex flex-col fixed top-0 left-0 h-screen transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'}`}>
+        <aside className={`shadow-md flex flex-col fixed top-0 left-0 h-screen transition-all duration-300 ease-in-out ${isOpen ? 'w-64' : 'w-20'}`}>
             {/* logo and heading */}
             {isOpen ?
-                <div className="p-6 border-b rounded border-gray-200 flex items-center justify-between gap-x-3">
+                <div className="p-6 h-20 border-b rounded border-gray-200 flex items-center justify-between gap-x-3">
                     <div className="flex justify-center gap-2 items-center">
                         <div className="flex justify-center w-8 h-8 bg-green-600 rounded-xl items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-piggy-bank w-5 h-5 text-white" aria-hidden="true">
@@ -24,7 +24,7 @@ function Sidebar({ isOpen, setIsOpen }) {
                     </div>
                     <MdMenu onClick={() => setIsOpen(!isOpen)} size={25} className="cursor-pointer" />
                 </div>
-                : <div className="p-6 border-b rounded border-gray-200 flex items-center justify-center gap-x-3">
+                : <div className="p-6 h-20 border-b rounded border-gray-200 flex items-center justify-center gap-x-3">
                     <MdMenuOpen onClick={() => setIsOpen(!isOpen)} size={25} className="cursor-pointer" />
                 </div>
             }
